@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Telegram DDoS Bot - RAJPUT Railway Edition 🔥
+# FULL WORKING CODE - COPY PASTE KARO
 
 import telebot
 import requests
@@ -350,17 +351,22 @@ def main():
         logger.info(f"🚂 Railway detected! URL: {railway_url}")
         logger.info(f"🔗 Setting webhook to: {webhook_url}")
         
-        bot.remove_webhook()
-        time.sleep(1)
-        bot.set_webhook(url=webhook_url)
+        try:
+            bot.remove_webhook()
+            time.sleep(1)
+            bot.set_webhook(url=webhook_url)
+            logger.info(f"✅ Webhook set successfully!")
+        except Exception as e:
+            logger.error(f"❌ Webhook set failed: {e}")
         
-        logger.info(f"✅ Webhook set successfully!")
-        logger.info(f"🚀 Bot running on port {PORT}")
-        
-        app.run(host='0.0.0.0', port=PORT)
+        logger.info(f"🚀 Bot is ready! Webhook: {webhook_url}")
     else:
         logger.info("💻 Local mode detected! Starting polling...")
         bot.infinity_polling()
 
+# ========== ENTRY POINT ==========
 if __name__ == '__main__':
+    # Run main function to setup bot
     main()
+    # Run Flask app
+    app.run(host='0.0.0.0', port=PORT)
